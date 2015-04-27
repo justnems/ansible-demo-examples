@@ -1,0 +1,7 @@
+---
+- name: Install python SELinux bindings
+  yum: name=libselinux-python state=present
+
+- name: Install ntpd package
+  yum: name=ntp state=present
+
