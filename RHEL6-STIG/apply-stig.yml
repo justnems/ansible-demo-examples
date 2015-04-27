@@ -1,0 +1,13 @@
+---
+- name: Apply STIG to a RHEL 6.x System
+  hosts: all
+  sudo: yes
+  vars: 
+    rhel6stig_cat1: true
+    rhel6stig_cat2: true
+    rhel6stig_cat3: true
+    rhel6stig_fullauto: true
+
+ roles:
+   - rhel6stig
+
