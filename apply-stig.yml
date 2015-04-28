@@ -1,4 +1,8 @@
 ---
+ - hosts: all
+   gather_facts: False
+
+ tasks:
  - name: Install required packages
    yum: name:libselinux-python state=present
    yum: name:ntp state=present
