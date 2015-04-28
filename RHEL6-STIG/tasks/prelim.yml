@@ -1,4 +1,10 @@
 ---
+- name: Install libselinux-python
+  yum: name=libselinux-python state=present
+
+- name: Install NTP packages
+  yum: name=ntp state=present
+
 # Prelimi|ary tasks that should always be run
 - name: PRELIM | Check for /etc/snmp/snmpd.conf
   stat: path=/etc/snmp/snmpd.conf
