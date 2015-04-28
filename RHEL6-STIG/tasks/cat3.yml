@@ -148,9 +148,10 @@
   tags: [ 'cat3' , 'V-38702' , 'vsftp' ]
   notify: restart vsftpd
 
-- name: V-38494 Low The system must prevent the root account from logging in from serial consoles
-  lineinfile: state=absent dest=/etc/securetty regexp='^ttyS[0-9]' backup=yes
-  tags: [ 'cat3' , 'V-38494' , 'root_access' , 'tty' ]
+# Disabled to keep from breaking demo
+#- name: V-38494 Low The system must prevent the root account from logging in from serial consoles
+#  lineinfile: state=absent dest=/etc/securetty regexp='^ttyS[0-9]' backup=yes
+#  tags: [ 'cat3' , 'V-38494' , 'root_access' , 'tty' ]
 
 - name: V-38676 Low  The xorg-x11-server-common (X Windows) package must not be installed, unless required
   yum: name="@X Window System" state=absent
