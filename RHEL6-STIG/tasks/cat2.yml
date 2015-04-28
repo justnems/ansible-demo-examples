@@ -276,9 +276,10 @@
   changed_when: result.stdout
   tags: [ 'cat2' , 'V-38498' , 'auditd' , 'file_perms' , 'audit_permissions' ]
 
-- name: V-38492 Medium  The system must prevent the root account from logging in from virtual consoles
-  lineinfile: state=absent dest=/etc/securetty regexp='^.*vc/?\d' backup=yes
-  tags: [ 'cat2' , 'V-38492' , 'root_access' , 'tty' ]
+#Disabled to not break the demo
+#- name: V-38492 Medium  The system must prevent the root account from logging in from virtual consoles
+#  lineinfile: state=absent dest=/etc/securetty regexp='^.*vc/?\d' backup=yes
+#  tags: [ 'cat2' , 'V-38492' , 'root_access' , 'tty' ]
 
 - name: "V-38496 Medium  Default system accounts, other than root, must be locked"
   command: passwd -l {{ item }}
