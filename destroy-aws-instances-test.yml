@@ -6,10 +6,6 @@
   vars:
     ec2_region: us-east-1
 
-  tasks:
-  - name: gather facts 
-    ec2_facts:
-
 - name: terminate hosts
   hosts: all
   connection: local  
