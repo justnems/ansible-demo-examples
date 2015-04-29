@@ -4,8 +4,8 @@
    sudo: yes
    vars:
     rhel6stig_cat1: true
-    rhel6stig_cat2: true
-    rhel6stig_cat3: true
+    rhel6stig_cat2: false
+    rhel6stig_cat3: false
     rhel6stig_fullauto: true
 
    roles:
