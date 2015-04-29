@@ -16,13 +16,13 @@
      image: "{{ ec2_image }}"
      region: "{{ ec2_region }}"
      instance_tags: 
-	ansible_group: justin-stig
-	type: '{{ ec2_instance_type }}'
-	group: '{{ ec2_security_group }}'
+      ansible_group: justin-stig
+      type: '{{ ec2_instance_type }}'
+      group: '{{ ec2_security_group }}'
      exact_count: 0
      coung_tag: 
-	ansible_group: justin-stig
-	type: '{{ ec2_instance_type }}'
-	group: '{{ ec2_security_group }}'
+      ansible_group: justin-stig
+      type: '{{ ec2_instance_type }}'
+      group: '{{ ec2_security_group }}'
      wait: true
     register: ec2
