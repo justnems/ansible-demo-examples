@@ -1,0 +1,12 @@
+localhost ansible_connection=local
+
+[win]
+
+[win:vars]
+ansible_connection=winrm
+ansible_ssh_port=5986
+ansible_ssh_user=Administrator
+ansible_ssh_pass={{ admin_password }}
+
+
+

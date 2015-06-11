@@ -1,0 +1,92 @@
+- name: windows instance setup
+  hosts: win
+  gather_facts: no
+  vars_files:
+  - secrets.yml
+  vars: 
+    # TODO: flatten this and unique it so we only hit each group once
+    ensure_groups: '{{ ensure_users | map(attribute="groups") | list }}'
+    items_to_install:
+    - msi_name: Agent-Core-Windows-9.5.3-2754.x86_64.msi
+      src_url: https://s3.amazonaws.com/westprime-dev-files/security-stack/trend/Agent-Core-Windows-9.5.3-2754.x86_64.msi
+      # args: # see http://esupport.trendmicro.com/solution/en-US/1095675.aspx
+    - msi_name: splunkforwarder-6.2.3-264376-x64-release.msi
+      src_url: https://s3.amazonaws.com/westprime-dev-files/security-stack/splunk/splunkforwarder-6.2.3-264376-x64-release.msi
+      args: AGREETOLICENSE=Yes # see http://docs.splunk.com/Documentation/Splunk/6.2.3/Forwarding/DeployaWindowsdfviathecommandline
+    - msi_name: NSCP-0.4.3.143-x64.msi
+      src_url: http://www.nsclient.org/files/released/NSCP-0.4.3.143-x64.msi
+      # args # see http://docs.nsclient.org/manual/windows_installer.html
+    services_to_disable:
+    - Spooler
+    windows_features:
+    # listed features will default to "state=present"
+    - name: Telnet-Client
+    - name: Telnet-Server # unless you override it to state=absent, in which case we'll ensure it's not there
+      state: absent
+
+  tasks:
+  - name: verify WinRM connectivity
+    win_ping: 
+
+  - name: ensure Windows local groups
+    win_group: name={{ item }}
+    with_items: ensure_groups
+    tags: [ groups ]
+
+  - name: ensure Windows local users
+    win_user: 
+      name: "{{ item.username }}"
+      password: "{{ item.password }}" 
+      groups: "{{ item.groups|join(',') }}"
+    with_items: ensure_users
+    tags: [ users ]
+
+  # this is currently broken on 2008R2 (chocolatey bootstrap bombs out)
+  # - name: bootstrap PSWindowsUpdate
+  #   win_chocolatey: name=PSWindowsUpdate
+  #   tags: [ updates ]
+
+  # this module is currently broken (looks like it works, but doesn't actually install updates)
+  # - name: install Windows security updates
+  #   win_updates: category=security
+  #   register: win_update_result
+  #   tags: [ updates ]
+
+  # - name: reboot if necessary
+  #   include: reboot_win_and_wait.yml
+  #   when: win_update_result.updates_reboot_needed == true
+  #   tags: [ updates ]
+
+  - name: ensure temp directory
+    win_file: path='c:\temp' state=directory
+    tags: [ msi ]
+
+  - name: copy files for software installation
+    win_get_url: url='{{ item.src_url }}' dest='c:\temp\{{ item.msi_name }}'
+    with_items: items_to_install
+    tags: [ msi ]
+
+  - name: ensure software installation
+    win_msi: 
+      path: 'c:\temp\{{ item.msi_name }}'
+      extra_args: '{{ item.args | default(omit) }}'
+    with_items: items_to_install
+    tags: [ msi ]
+
+  - name: ensure disabled services
+    win_service: name={{ item }} start_mode=disabled state=stopped
+    with_items: services_to_disable
+    tags: [ services ]
+
+    # get the full list of feature names in Powershell with Get-WindowsFeature
+  - name: ensure Windows features
+    win_feature: name={{ item.name }} state={{ item.state | default('present')}}
+    with_items: windows_features
+    register: win_feature_result
+    tags: [ features ]
+
+  - name: reboot if necessary
+    include: reboot_win_and_wait.yml
+    when: true in win_feature_result.results | map(attribute='restart_needed') | list
+    tags: [ features ]
+
