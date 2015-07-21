@@ -2,9 +2,6 @@
 - name: Terminate AWS Hosts
   hosts: all
 
-  vars:
-    ec2_region: us-east-1
-
   tasks:
   - name: Destroy STIG Demo Instances
     ec2: 
@@ -21,7 +18,7 @@
       group: '{{ ec2_security_group }}'
      exact_count: 0
      count_tag: 
-      ansible_group: justin-stig
+      ansible_group: '{{ restrict_group }}'
       type: '{{ ec2_instance_type }}'
       group: '{{ ec2_security_group }}'
      wait: false
