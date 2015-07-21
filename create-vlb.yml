@@ -1,0 +1,25 @@
+---
+# Create VLB
+- hosts: all
+  connection: local
+  gather_facts: False
+
+  vars_files:
+  - group_vars/all
+ 
+  tasks:
+  - name: Create ELB
+    ec2_elb_lb: >
+     access_key="{{ ec2_access_key }}"
+     secret_key="{{ ec2_secret_key }}"
+     state=present
+     name='demo-elb'
+     security_group_ids='sg-70d43f15,sg-fe30d99b'
+     region={{ ec2_region }}
+     subnets='subnet-85f61ce0'
+     purge_subnets=yes
+     connection_draining_timeout=5
+     listeners:
+       - protocol: http
+         load_balancer_port: 80
+         instance_port: 80
