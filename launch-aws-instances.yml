@@ -17,7 +17,7 @@
      type="{{ ec2_instance_type }}"
      image="{{ ec2_image }}"
      region="{{ ec2_region }}"
-     instance_tags="{'ansible_group':'{{ ansible_group }}', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}','Name':'{{ server_type }}' }"
+     instance_tags="{'ansible_group':'{{ ansible_group }}', 'group':'{{ ec2_security_group }}','Name':'{{ server_type }}' }"
      count="{{ ec2_instance_count }}"
      wait=true
     register: ec2
