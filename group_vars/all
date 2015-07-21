@@ -9,6 +9,7 @@ ec2_keypair: jnemmers
 ec2_security_group: default
 ec2_instance_count: 1
 ec2_tag:
+aws_timeout: 320
 
 # need to separate out these RAX vars from the above
 rax_region:
