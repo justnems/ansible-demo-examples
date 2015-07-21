@@ -4,9 +4,6 @@
   connection: local
   gather_facts: False
 
-  vars_files:
-  - group_vars/all
- 
   tasks:
   - name: Create ELB
     ec2_elb_lb: >
@@ -15,7 +12,7 @@
      state=present
      name='demo-elb'
      security_group_ids='sg-70d43f15,sg-fe30d99b'
-     region={{ ec2_region }}
+     region="{{ ec2_region }}"
      subnets='subnet-85f61ce0'
      purge_subnets=yes
      connection_draining_timeout=5
