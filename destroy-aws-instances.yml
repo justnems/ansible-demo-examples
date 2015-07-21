@@ -18,7 +18,7 @@
       group: '{{ ec2_security_group }}'
      exact_count: 0
      count_tag: 
-      ansible_group: '{{ restrict_group }}'
+      ansible_group: '{{ ansible_group }}'
       type: '{{ ec2_instance_type }}'
       group: '{{ ec2_security_group }}'
      wait: false
