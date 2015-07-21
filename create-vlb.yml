@@ -16,7 +16,7 @@
      subnets='subnet-85f61ce0'
      purge_subnets=yes
      connection_draining_timeout=5
-     listeners:
-       - protocol: http
-         load_balancer_port: 80
-         instance_port: 8080
+     listeners: >
+       - protocol=http
+         load_balancer_port=80
+         instance_port=8080
