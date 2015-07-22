@@ -1,0 +1,13 @@
+---
+- name: Install python bindings for SE Linux
+  yum: name={{ item }} state=present
+  with_items:
+   - libselinux-python
+   - libsemanage-python
+
+- name: Configure SELinux to allow httpd to connect to remote database
+  seboolean: name=httpd_can_network_connect_db state=true persistent=yes
+  when: sestatus.rc != 0
+
+- name: Copy the code from repository
+  git: repo={{ repository }} version={{ webapp_version }} dest=/usr/share/jboss-as/standalone/deployments/

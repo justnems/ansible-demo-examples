@@ -1,0 +1,5 @@
+---
+- hosts: jboss-servers
+  remote_user: ec2-user
+  sudo: yes
+  roles: testapp

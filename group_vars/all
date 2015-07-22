@@ -11,13 +11,3 @@ ec2_instance_count: 1
 ec2_tag:
 aws_timeout: 320
 
-# need to separate out these RAX vars from the above
-rax_region:
-rax_image:
-rax_instance_count: 2
-
-# ditto for GCE
-gce_image: "dj_demo"
-gce_zone: "us-central1-f"
-gce_instance_count: 2
-gce_type:
