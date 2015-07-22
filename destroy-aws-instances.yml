@@ -10,7 +10,7 @@
      keypair: "{{ ec2_keypair }}"
      group: "{{ ec2_security_group }}"
      region: "{{ ec2_region }}"
-     image="{{ ec2_image }}"
+     image: "{{ ec2_image }}"
      instance_tags: 
       ansible_group: "{{ ansible_group }}"
       type: '{{ ec2_instance_type }}'
