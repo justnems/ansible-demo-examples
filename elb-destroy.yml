@@ -10,3 +10,4 @@
       module: ec2_elb_lb
       state: absent
       name: "{{ app_name }}"
+      region: "{{ ec2_region }}"
