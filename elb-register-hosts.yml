@@ -14,4 +14,4 @@
       state: present
       region: "{{ ec2_region }}"
       ec2_elbs: "{{ app_name }}"
-      instance_id: "{{ hostvars[inventory_hostname]['ansible_facts']['instance-id'] }}"
+      instance_id: "{{ ec2_id }}"
