@@ -1,7 +1,7 @@
 ---
 # This playbook deploys a simple standalone JBoss server. 
 
-- hosts: jboss-servers
+- hosts: all
   remote_user: ec2-user
   sudo: yes
 
