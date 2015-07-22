@@ -1,0 +1,21 @@
+---
+# Create VLB
+- hosts: all
+  connection: local
+  gather_facts: False
+
+  tasks:
+  - name: create ELB
+    local_action:
+      module: ec2_elb_lb
+      state: absent
+      name: "{{ elb_name }}"
+      security_group_ids: 'sg-70d43f15,sg-fe30d99b'
+      region: "{{ ec2_region }}"
+      subnets: 'subnet-85f61ce0'
+      purge_subnets: yes
+      connection_draining_timeout: 5
+      listeners:
+        - protocol: http
+          load_balancer_port: 80
+          instance_port: 8080
