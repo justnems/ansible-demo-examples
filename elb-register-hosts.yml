@@ -1,12 +1,12 @@
 ---
-# Create VLB
+# Add Hosts to ELB
 - hosts: all
-  connection: local
   gather_facts: False
 
   tasks:
   - name: Gather ec2 facts
     ec2_facts:  
+  register: facts
 
   - name: Add hosts to ELB
     local_action:
@@ -14,5 +14,5 @@
       state: present
       region: "{{ ec2_region }}"
       ec2_elbs: "{{ app_name }}"
-      instance_id: "{{ item.ec2_id }}"
-    with_items: hosts
+      instance_id: "{{ item }}"
+   with_items: facts.instance-id
