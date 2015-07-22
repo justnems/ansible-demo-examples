@@ -15,4 +15,4 @@
       region: "{{ ec2_region }}"
       ec2_elbs: "{{ app_name }}"
       instance_id: "{{ item }}"
-     with_items: facts.instance-id
+      with_items: facts.instance-id
