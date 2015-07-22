@@ -1,6 +1,11 @@
 ---
 - hosts: jboss-servers
+  vars:
+    repository: https://github.com/justnems/sample-webapp.git
+    # Version 1 of Webapp
+    webapp_version: 1.0
+  gather_facts: no
   remote_user: ec2-user
   sudo: yes
   roles:
-    - testapp
+    - webapp

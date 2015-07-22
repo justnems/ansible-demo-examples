@@ -1,0 +1,3 @@
+---
+- name: Install required GIT packages
+  yum: name=git-cvs state=present

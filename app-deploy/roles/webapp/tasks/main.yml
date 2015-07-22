@@ -1,0 +1,9 @@
+---
+- name: Copy war app
+  copy: src=webapp-{{ webapp_version }}.war dest=/home/ec2-user/webapp.war
+
+- name: Deploy app version
+  jboss: src=/home/ec2-user/webapp.war state=present deployment=webapp.war deploy_path=/usr/share/jboss-as/standalone/deployments/
+
+
+#  git: repo={{ repository }} version={{ webapp_version }} dest=/usr/share/jboss-as/standalone/deployments force=yes
