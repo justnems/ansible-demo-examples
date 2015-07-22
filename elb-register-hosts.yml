@@ -16,14 +16,5 @@
       module: ec2_elb
       state: present
       region: "{{ ec2_region }}"
-      ec2_elbs: demo-elb
-      instance_id: "{{ item }}"
-    with_items:
-      - i-52df4077 
-      - i-fe22bedb
-
-
-#      listeners:
-#        - protocol=http
-#          load_balancer_port=80
-#          instance_port=8080
+      ec2_elbs: "{{ app_name }}"
+      instance_id: "{{ ec2_id }}"
