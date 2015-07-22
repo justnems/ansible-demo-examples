@@ -1,0 +1,12 @@
+---
+# Create VLB
+- hosts: all
+  connection: local
+  gather_facts: False
+
+  tasks:
+  - name: Destroy ELB
+    local_action:
+      module: ec2_elb_lb
+      state: absent
+      name: "{{ app_name }}"

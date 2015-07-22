@@ -5,11 +5,11 @@
   gather_facts: False
 
   tasks:
-  - name: create ELB
+  - name: Create ELB
     local_action:
       module: ec2_elb_lb
       state: present
-      name: "{{ elb_name }}"
+      name: "{{ app_name }}"
       security_group_ids: 'sg-70d43f15,sg-fe30d99b'
       region: "{{ ec2_region }}"
       subnets: 'subnet-85f61ce0'
