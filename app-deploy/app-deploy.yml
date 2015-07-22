@@ -1,5 +1,6 @@
 ---
 - hosts: jboss-servers
+  serial: 1
   vars:
     webapp_version: 1.0
   gather_facts: no
