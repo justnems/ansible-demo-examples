@@ -1,5 +1,5 @@
 ---
-- hosts: jboss-servers
+- hosts: all
   serial: 1
   vars:
     webapp_version: 1.0
