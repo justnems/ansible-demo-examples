@@ -4,9 +4,6 @@
   connection: local
   gather_facts: False
 
-  vars_files:
-  - pri_vars/all
-
   tasks:
   - name: Gather ec2 facts
     ec2_facts:  
