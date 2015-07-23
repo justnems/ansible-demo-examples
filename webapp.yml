@@ -1,0 +1,15 @@
+# Standup an infrastructure and deploy an application onto it
+
+- hosts: all
+  vars:
+   app_name: webapp
+   ansible_group: webapp-servers
+  connection: local
+  gather_facts: False
+
+  tasks:
+  - include: elb-create.yml
+  - include: launch-aws-instances.yml
+
+- hosts: webapp-servers
+    
