@@ -9,5 +9,5 @@
     rhel6stig_fullauto: true
 
    roles:
-   - RHEL6-STIG-{{ STIG_Version }}
+   - RHEL6-STIG
 
