@@ -1,5 +1,6 @@
 ---
 - name: Terminate AWS Hosts
+  connection: local
   hosts: all
 
   tasks:
