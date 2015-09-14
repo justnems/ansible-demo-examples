@@ -1,5 +1,5 @@
 ---
-- fix umask for this session
+- name: Fix umask for this session
   command: umask 0022
 
 - name: Copy war app
