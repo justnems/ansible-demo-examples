@@ -1,3 +1,4 @@
+[rhui-REGION-rhel-server-releases]
 name=Red Hat Enterprise Linux Server 6 (RPMs)
 mirrorlist=https://rhui2-cds01.REGION.aws.ce.redhat.com/pulp/mirror/content/dist/rhel/rhui/server/6/$releasever/$basearch/os
 enabled=1
