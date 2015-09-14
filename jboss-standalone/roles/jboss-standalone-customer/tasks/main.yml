@@ -1,6 +1,6 @@
 ---
 - name: Update resolv.conf
-  copy: src=resolv.conf dest=/etc/resolv.conf mode=644 owner=root group=root
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf mode=644 owner=root group=root
 
 - name: Copy updated repos file
   copy: src=redhat-rhui.repo dest=/etc/yum.repos.d/redhat-rhui.repo mode=644 owner=root group=root
