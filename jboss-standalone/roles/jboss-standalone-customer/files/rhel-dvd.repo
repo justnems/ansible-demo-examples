@@ -1,0 +1,6 @@
+[rhel-dvd]
+name=Red Hat Enterprise Linux - DVD
+baseurl=file:///media/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release

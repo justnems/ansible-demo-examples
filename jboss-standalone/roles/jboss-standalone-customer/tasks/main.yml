@@ -1,6 +1,7 @@
 ---
 - name: Copy updated repos file
   copy: src=redhat-rhui.repo dest=/etc/yum.repos.d/redhat-rhui.repo mode=644 owner=root group=root
+  copy: src=rhel-dvd.repo dest=/etc/yum.repos.d/rhel-dvd.repo mode=644 owner=root group=root
 
 - name: Install Java 1.7 and some basic dependencies
   yum: name={{item}} state=present
