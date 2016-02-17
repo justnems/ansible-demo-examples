@@ -1,0 +1,22 @@
+---
+#Delete a VPC by vpc_id
+- hosts: all
+  connection: local
+  gather_facts: False
+
+  vars_files:
+  - group_vars/all
+ 
+  tasks:
+  - name: Delete VPC
+    ec2_vpc: >
+     access_key="{{ ec2_access_key }}"
+     secret_key="{{ ec2_secret_key }}"
+     region="{{ ec2_region }}"
+     state="absent"
+     vpc_id="{{ vpc_id }}"
+     resource_tags="{ 'Environment':'Dev' }"
+    register: vpc
+     
+  - name: Debug vpc output
+    debug: var=vpc

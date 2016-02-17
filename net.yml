@@ -1,0 +1,18 @@
+- hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: collect device running-config
+      ping:
+    - name: set device running-config fact
+      ping:
+    - name: configure loopback interfaces
+      ping:
+    - name: configure network interfaces
+      ping:
+    - name: enable global ip routing
+      ping:
+    - name: configure global ospf
+      ping:
+    - name: configure ospf administrative state
+      ping:

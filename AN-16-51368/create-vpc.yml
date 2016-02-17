@@ -1,0 +1,40 @@
+---
+#Create a VPC, then deploy some hosts
+- hosts: all
+  connection: local
+  gather_facts: False
+
+  vars_files:
+  - group_vars/all
+ 
+  tasks:
+  - name: Launch raw instances
+    ec2_vpc: >
+     access_key="{{ ec2_access_key }}"
+     secret_key="{{ ec2_secret_key }}"
+     region="{{ ec2_region }}" 
+     state="present"
+     cidr_block="{{ cidr_block }}"
+     resource_tags="{ 'Environment':'Dev' }"
+     subnets="{ 'cidr' : '172.0.1.0/24', 'az' : 'us-gov-west-1c'}"
+    register: vpc
+     
+  - name: Debug vpc output
+    debug: var=vpc
+    
+ # - name: Deploy some EC2 instances into the VPC
+ #   ec2: >
+ #    access_key="{{ ec2_access_key }}"
+ #    secret_key="{{ ec2_secret_key }}"
+ #    keypair="{{ ec2_keypair }}"
+ #    group="{{ ec2_security_group }}"
+ #    type="{{ ec2_instance_type }}"
+ #    image="{{ ec2_image }}"
+ #    region="{{ ec2_region }}"
+ #    vpc_id:"{{  }}"
+ #    assign_public_ip="true"
+ #    instance_tags="{'ansible_group':'{{ ansible_group }}', 'group':'{{ ec2_security_group }}','Name':'{{ server_type }}' }"
+ #    count="{{ ec2_instance_count }}"
+ #    wait=true
+ #   
+ # - name: Create S3 bucket
