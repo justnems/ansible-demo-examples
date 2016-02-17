@@ -9,11 +9,16 @@
       changed_when: True
     - name: configure loopback interfaces
       ping:
+      changed_when: True
     - name: configure network interfaces
       ping:
+      changed_when: True
     - name: enable global ip routing
       ping:
+      changed_when: True
     - name: configure global ospf
       ping:
+      changed_when: True
     - name: configure ospf administrative state
       ping:
+      changed_when: True
