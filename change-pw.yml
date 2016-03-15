@@ -1,6 +1,6 @@
 ---
  - name: Change password for a user
-   hosts: mail
+   hosts: all
    gather_facts: no
    become: yes
    become_method: sudo
