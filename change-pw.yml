@@ -1,0 +1,12 @@
+---
+ - name: Change password for a user
+   hosts: mail
+   gather_facts: no
+   become: yes
+   become_method: sudo
+   vars:
+    vars_go_here: "true"
+
+   tasks:
+   - name: change a password
+     user: name="{{ username }}" password="{{ new_password }}"
