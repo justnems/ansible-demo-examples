@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  serial: 1
+  serial: {{ serial }}
   gather_facts: no
   remote_user: ec2-user
   sudo: yes
