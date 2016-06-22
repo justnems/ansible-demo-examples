@@ -1,11 +1,11 @@
 ---
 - name: Instantiate ec2 Instances
-  hosts: all
+  hosts: localhost
   gather_facts: False
   connection: local
   
   vars_files:
-  - end-to-end-vars
+  - ./end-to-end-vars
   
   tasks:
   - name: Launch raw instances
@@ -28,27 +28,38 @@
     local_action: wait_for host={{ item.public_dns_name }}
       port=22 delay=60 timeout={{ aws_timeout }} state=started
     with_items: ec2.instances
-    
+
+  - name: Add hosts to in-memory inventory
+    local_action: add_host name={{item.public_dns_name }} group=new_hosts
+    with_items: ec2.instances
+
   - name: Create ELB
     local_action:
      module: ec2_elb_lb
+     access_key: "{{ ec2_access_key }}"
+     secret_key: "{{ ec2_secret_key }}"
      state: present
      name: "{{ app_name }}"
      security_group_ids: 'sg-70d43f15,sg-fe30d99b'
      region: "{{ ec2_region }}"
      subnets: 'subnet-85f61ce0'
-     vpc_subnet_id: 'subnet-85f61ce0'
      purge_subnets: yes
      connection_draining_timeout: 5
      listeners:
      - protocol: http
        load_balancer_port: 80
        instance_port: 8080
-    
-- name: Install JBoss
-  hosts: all
-  
-  tasks:
-   - include: jboss-standalone/site.yml
-   - include: app-deploy/site.yml
-   - include: elb-register-hosts.yml
+
+- name: Set up new servers
+  hosts: new_hosts
+  gather_facts: false
+
+  roles:
+    - jboss-standalone
+    - app-deploy
+    - elb-register-hosts
+
+
+#  - include: jboss-standalone/site.yml
+#  - include: app-deploy/site.yml
+#  - include: elb-register-hosts.yml
